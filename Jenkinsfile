@@ -38,5 +38,13 @@ pipeline{
             }
             }
           }
+          stage('Delete pushed images localy'){
+          steps{
+            script{
+            sh "docker rmi ${IMAGE_NAME}:${BUILD_NUMBER}"
+            sh "docker rmi ${IMAGE_NAME}:latest"
+            }
+            }
+            }
         }
    }
