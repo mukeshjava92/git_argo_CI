@@ -5,7 +5,7 @@ pipeline{
     APP_NAME = "git-argo-app"
     IMAGE_TAG = "${BUILD_ID}" 
     IMAGE_NAME = "${DOCKER_HUB_USERNAME}"+"/"+"${APP_NAME}"
-    REGISTRY_CREDS = 'dockerhub'   
+    REGISTRY_CREDS = 'docker_cred'   
   }
   stages{
 
@@ -31,7 +31,7 @@ pipeline{
           stage('Push image to Dockerhub'){
           steps{
             script{
-            docker.withRegistery('',docker_cred){
+            docker.withRegistery('',REGISTRY_CREDS){
               docker_image.push("$BUILD_NUMBER")
               docker_image.push('latest')
             }
