@@ -32,7 +32,7 @@ pipeline{
           steps{
             script{
             docker.withRegistry('',REGISTRY_CREDS){
-              docker_image.push("$BUILD_NUMBER")
+              docker_image.push("$IMAGE_TAG")
               docker_image.push('latest')
             }
             }
@@ -41,7 +41,7 @@ pipeline{
           stage('Delete pushed images localy'){
           steps{
             script{
-            sh "docker rmi ${IMAGE_NAME}:${BUILD_NUMBER}"
+            sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
             sh "docker rmi ${IMAGE_NAME}:latest"
             }
             }
@@ -51,7 +51,7 @@ pipeline{
             script{
             sh """
             cat deployment.yaml
-            sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' deployment.yaml
+            sed -i 's/${APP_NAME}*/${APP_NAME}:${IMAGE_TAG}/g' deployment.yaml
             cat deployment.yaml
             """
             }
