@@ -67,7 +67,7 @@ pipeline{
             git commit -m "Updated deployment.yaml file" 
             """
             withCredentials([string(credentialsId: 'gitcred', variable: 'gitcred')]) {
-            sh 'git push "https://github.com/mukeshjava92/git_argocd_minikube.git" main'
+            sh 'git push "https://${gitcred}@github.com/mukeshjava92/git_argocd_minikube" main'
             }
             }
             }
