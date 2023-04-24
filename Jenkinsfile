@@ -21,5 +21,11 @@ pipeline{
             git branch: 'main', url: 'https://github.com/mukeshjava92/git_argocd_minikube.git'
             }
           }
+        stage('Docker image build'){
+
+          steps{
+            docker_image = docker.build "${IMAGE_NAME}"
+            }
+          }
         }
    }
