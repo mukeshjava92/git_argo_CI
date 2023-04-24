@@ -1,10 +1,10 @@
 pipeline{
   agent any
   environment{
-    DOCKERHUB_USERNAME = "mukeshjava92"
+    DOCKER_HUB_USERNAME = "mukeshjava92"
     APP_NAME = "git-argo-app"
     IMAGE_TAG = "${BUILD_ID}" 
-    IMAGE_NAME = "${DOCKERHUB_USERNAME}"+"/"+"${APP_NAME}"
+    IMAGE_NAME = "${DOCKER_HUB_USERNAME}"+"/"+"${APP_NAME}"
     REGISTRY_CREDS = 'dockerhub'   
   }
   stages{
@@ -22,10 +22,19 @@ pipeline{
             }
           }
         stage('Docker image build'){
-
           steps{
             script{
             docker_image = docker.build "${IMAGE_NAME}"
+            }
+            }
+          }
+          stage('Push image to Dockerhub'){
+          steps{
+            script{
+            docker.withRegistery('',docker_cred){
+              docker_image.push("$BUILD_NUMBER")
+              docker_image.push('latest')
+            }
             }
             }
           }
