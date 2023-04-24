@@ -31,7 +31,7 @@ pipeline{
           stage('Push image to Dockerhub'){
           steps{
             script{
-            docker.withRegistery('',REGISTRY_CREDS){
+            docker.withRegistry('',REGISTRY_CREDS){
               docker_image.push("$BUILD_NUMBER")
               docker_image.push('latest')
             }
