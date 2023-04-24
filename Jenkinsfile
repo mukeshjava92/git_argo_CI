@@ -57,7 +57,7 @@ pipeline{
             }
             }
             }
-            stage('Push Deployment.yaml back to git '){
+            stage('Push Deployment.yaml back to git'){
           steps{
             script{
             sh """
@@ -67,7 +67,7 @@ pipeline{
             git commit -m "Updated deployment.yaml file" 
             """
             withCredentials([gitUsernamePassword(credentialsId: 'gitcred', gitToolName: 'Default')]) {
-            git push "https://github.com/mukeshjava92/git_argocd_minikube.git" main
+            sh 'git push "https://github.com/mukeshjava92/git_argocd_minikube.git" main'
             }
             }
             }
