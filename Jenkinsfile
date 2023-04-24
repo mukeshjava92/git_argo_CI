@@ -66,7 +66,7 @@ pipeline{
             git add deployment.yaml
             git commit -m "Updated deployment.yaml file" 
             """
-            withCredentials([gitUsernamePassword(credentialsId: 'gitcred', gitToolName: 'Default')]) {
+            withCredentials([string(credentialsId: 'gitcred', variable: 'gitcred')]) {
             sh 'git push "https://github.com/mukeshjava92/git_argocd_minikube.git" main'
             }
             }
