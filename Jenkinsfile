@@ -19,6 +19,7 @@ pipeline{
         stage('Checkout SCM'){
           steps{
             script{
+              git
               url: 'https://github.com/mukeshjava92/git_argocd_minikube.git' 
               branch: 'main'
               }
