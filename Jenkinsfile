@@ -57,5 +57,20 @@ pipeline{
             }
             }
             }
+            stage('Push Deployment.yaml back to git '){
+          steps{
+            script{
+            sh """
+            git config --global user.name mukeshjava92
+            git config --global user.mail mukeshjava92@gmail.com
+            git add deployment.yaml
+            git commit -m "Updated deployment.yaml file" 
+            """
+            withCredentials([gitUsernamePassword(credentialsId: 'gitcred', gitToolName: 'Default')]) {
+            git push "https://github.com/mukeshjava92/git_argocd_minikube.git" main
+            }
+            }
+            }
+            }
         }
    }
