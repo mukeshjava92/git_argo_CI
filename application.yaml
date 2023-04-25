@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: operators
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mukeshjava92/git_argocd_minikube.git
+    targetRevision: HEAD
+    path: .
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: operators
+  syncPolicy:
+    syncOtions:
+    - CreateNamespace=true 
+    automated:
+      selfHeal: true
+      prune: true    
